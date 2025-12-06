@@ -44,7 +44,7 @@ export function Header() {
             href="/#markets"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            Markets
+            Mercados
           </a>
           {account && (
             <>
@@ -53,14 +53,14 @@ export function Header() {
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
               >
                 <LayoutDashboard className="h-4 w-4" />
-                Portfolio
+                Portfólio
               </Link>
               <Link
                 href="/winnings"
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
               >
                 <Trophy className="h-4 w-4" />
-                Winnings
+                Ganhos
               </Link>
             </>
           )}
@@ -68,13 +68,13 @@ export function Header() {
             href="/#leaderboard"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            Leaderboard
+            Classificação
           </a>
           <a
             href="/#about"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            About
+            Sobre
           </a>
         </nav>
 
@@ -93,7 +93,7 @@ export function Header() {
           {!account ? (
             <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={connectWallet} disabled={isConnecting}>
               <Wallet className="h-4 w-4 mr-2" />
-              {isConnecting ? "Connecting..." : "Connect Wallet"}
+              {isConnecting ? "Conectando..." : "Conectar Carteira"}
             </Button>
           ) : (
             <DropdownMenu>
@@ -104,13 +104,13 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel>My Wallet</DropdownMenuLabel>
+                <DropdownMenuLabel>Minha Carteira</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem disabled>
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs text-muted-foreground">Balance</span>
+                    <span className="text-xs text-muted-foreground">Saldo</span>
                     <span className="font-semibold">
-                      {balance ? `${Number.parseFloat(balance).toFixed(4)} ETH` : "Loading..."}
+                      {balance ? `${Number.parseFloat(balance).toFixed(4)} ETH` : "Carregando..."}
                     </span>
                   </div>
                 </DropdownMenuItem>
@@ -118,11 +118,11 @@ export function Header() {
                 <DropdownMenuItem asChild>
                   <Link href="/winnings" className="cursor-pointer">
                     <Trophy className="h-4 w-4 mr-2" />
-                    View Winnings
+                    Ver Ganhos
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={disconnectWallet}>Disconnect</DropdownMenuItem>
+                <DropdownMenuItem onClick={disconnectWallet}>Desconectar</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}

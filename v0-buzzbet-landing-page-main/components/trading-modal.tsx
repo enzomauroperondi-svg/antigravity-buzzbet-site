@@ -48,12 +48,12 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
 
   const handlePlaceOrder = async (side: "yes" | "no") => {
     if (!account) {
-      alert("Please connect your wallet first!")
+      alert("Por favor, conecte sua carteira primeiro!")
       return
     }
 
     if (!limitPrice || !shares) {
-      alert("Please enter limit price and shares")
+      alert("Por favor, insira preço limite e ações")
       return
     }
 
@@ -61,12 +61,12 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
     const sharesNum = Number.parseFloat(shares)
 
     if (priceNum <= 0 || priceNum >= 100) {
-      alert("Price must be between 0 and 100 cents")
+      alert("O preço deve estar entre 0 e 100 centavos")
       return
     }
 
     if (sharesNum <= 0) {
-      alert("Shares must be greater than 0")
+      alert("Ações devem ser maiores que 0")
       return
     }
 
@@ -85,7 +85,7 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
     })
 
     if (balance && costETH > Number.parseFloat(balance)) {
-      alert(`Insufficient balance. Need ${costETH.toFixed(8)} ETH but you have ${balance} ETH`)
+      alert(`Saldo insuficiente. Precisa de ${costETH.toFixed(8)} ETH mas você tem ${balance} ETH`)
       return
     }
 
@@ -120,13 +120,13 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
       })
 
       if (!response.ok) {
-        throw new Error("Failed to create order")
+        throw new Error("Falha ao criar ordem")
       }
 
       const result = await response.json()
 
       alert(
-        `✅ Order placed successfully!\n\nBuy ${side.toUpperCase()} @ ${priceNum}¢\n${sharesNum} shares\n\nTransaction: ${tx.hash.slice(0, 10)}...`,
+        `✅ Ordem colocada com sucesso!\n\nCompra ${side.toUpperCase()} @ ${priceNum}¢\n${sharesNum} ações\n\nTransação: ${tx.hash.slice(0, 10)}...`,
       )
 
       onOrderPlaced?.()
@@ -136,9 +136,9 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
     } catch (error: any) {
       console.error("Error placing order:", error)
       if (error.code === "ACTION_REJECTED" || error.code === 4001) {
-        alert("Transaction rejected by user")
+        alert("Transação rejeitada pelo usuário")
       } else {
-        alert(`Failed to place order: ${error.message}`)
+        alert(`Falha ao colocar ordem: ${error.message}`)
       }
     } finally {
       setIsPlacingOrder(false)
@@ -152,38 +152,38 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Trade Market</DialogTitle>
+          <DialogTitle>Negociar Mercado</DialogTitle>
           <DialogDescription className="text-pretty">{market.question}</DialogDescription>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="yes" className="data-[state=active]:bg-success/20 data-[state=active]:text-success">
-              Buy YES
+              Comprar SIM
             </TabsTrigger>
             <TabsTrigger
               value="no"
               className="data-[state=active]:bg-destructive/20 data-[state=active]:text-destructive"
             >
-              Buy NO
+              Comprar NÃO
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="yes" className="space-y-4">
             <div className="rounded-lg border border-success/30 bg-success/5 p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-muted-foreground">Best Ask (YES)</span>
+                <span className="text-sm text-muted-foreground">Melhor Oferta (SIM)</span>
                 <div className="flex items-center gap-1 text-success">
                   <TrendingUp className="h-4 w-4" />
                   <span className="text-xl font-bold">{bestAskYes}¢</span>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground">Current best price to buy YES shares</p>
+              <p className="text-xs text-muted-foreground">Melhor preço atual para comprar ações SIM</p>
             </div>
 
             <div className="space-y-3">
               <div>
-                <Label htmlFor="yes-price">Limit Price (cents)</Label>
+                <Label htmlFor="yes-price">Preço Limite (centavos)</Label>
                 <Input
                   id="yes-price"
                   type="number"
@@ -194,11 +194,11 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
                   value={limitPrice}
                   onChange={(e) => setLimitPrice(e.target.value)}
                 />
-                <p className="text-xs text-muted-foreground mt-1">Set your buy price (1-99¢)</p>
+                <p className="text-xs text-muted-foreground mt-1">Defina seu preço de compra (1-99¢)</p>
               </div>
 
               <div>
-                <Label htmlFor="yes-shares">Shares</Label>
+                <Label htmlFor="yes-shares">Ações</Label>
                 <Input
                   id="yes-shares"
                   type="number"
@@ -208,21 +208,21 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
                   value={shares}
                   onChange={(e) => setShares(e.target.value)}
                 />
-                <p className="text-xs text-muted-foreground mt-1">Number of shares to buy</p>
+                <p className="text-xs text-muted-foreground mt-1">Número de ações para comprar</p>
               </div>
 
               {limitPrice && shares && (
                 <div className="rounded-lg bg-muted p-3 space-y-1">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Cost</span>
+                    <span className="text-muted-foreground">Custo</span>
                     <span className="font-medium">
                       ${((Number.parseFloat(limitPrice) / 100) * Number.parseFloat(shares)).toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Max Return (if YES wins)</span>
+                    <span className="text-muted-foreground">Retorno Máx (se SIM vencer)</span>
                     <span className="font-medium text-success">
-                      ${(((100 - Number.parseFloat(limitPrice)) / 100) * Number.parseFloat(shares)).toFixed(2)} profit
+                      ${(((100 - Number.parseFloat(limitPrice)) / 100) * Number.parseFloat(shares)).toFixed(2)} lucro
                     </span>
                   </div>
                 </div>
@@ -237,10 +237,10 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
               {isPlacingOrder ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
+                  Processando...
                 </>
               ) : (
-                "Place Buy Order (YES)"
+                "Colocar Ordem de Compra (SIM)"
               )}
             </Button>
           </TabsContent>
@@ -248,18 +248,18 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
           <TabsContent value="no" className="space-y-4">
             <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-muted-foreground">Best Ask (NO)</span>
+                <span className="text-sm text-muted-foreground">Melhor Oferta (NÃO)</span>
                 <div className="flex items-center gap-1 text-destructive">
                   <TrendingDown className="h-4 w-4" />
                   <span className="text-xl font-bold">{bestAskNo}¢</span>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground">Current best price to buy NO shares</p>
+              <p className="text-xs text-muted-foreground">Melhor preço atual para comprar ações NÃO</p>
             </div>
 
             <div className="space-y-3">
               <div>
-                <Label htmlFor="no-price">Limit Price (cents)</Label>
+                <Label htmlFor="no-price">Preço Limite (centavos)</Label>
                 <Input
                   id="no-price"
                   type="number"
@@ -270,11 +270,11 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
                   value={limitPrice}
                   onChange={(e) => setLimitPrice(e.target.value)}
                 />
-                <p className="text-xs text-muted-foreground mt-1">Set your buy price (1-99¢)</p>
+                <p className="text-xs text-muted-foreground mt-1">Defina seu preço de compra (1-99¢)</p>
               </div>
 
               <div>
-                <Label htmlFor="no-shares">Shares</Label>
+                <Label htmlFor="no-shares">Ações</Label>
                 <Input
                   id="no-shares"
                   type="number"
@@ -284,21 +284,21 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
                   value={shares}
                   onChange={(e) => setShares(e.target.value)}
                 />
-                <p className="text-xs text-muted-foreground mt-1">Number of shares to buy</p>
+                <p className="text-xs text-muted-foreground mt-1">Número de ações para comprar</p>
               </div>
 
               {limitPrice && shares && (
                 <div className="rounded-lg bg-muted p-3 space-y-1">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Cost</span>
+                    <span className="text-muted-foreground">Custo</span>
                     <span className="font-medium">
                       ${((Number.parseFloat(limitPrice) / 100) * Number.parseFloat(shares)).toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Max Return (if NO wins)</span>
+                    <span className="text-muted-foreground">Retorno Máx (se NÃO vencer)</span>
                     <span className="font-medium text-destructive">
-                      ${(((100 - Number.parseFloat(limitPrice)) / 100) * Number.parseFloat(shares)).toFixed(2)} profit
+                      ${(((100 - Number.parseFloat(limitPrice)) / 100) * Number.parseFloat(shares)).toFixed(2)} lucro
                     </span>
                   </div>
                 </div>
@@ -313,10 +313,10 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
               {isPlacingOrder ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
+                  Processando...
                 </>
               ) : (
-                "Place Buy Order (NO)"
+                "Colocar Ordem de Compra (NÃO)"
               )}
             </Button>
           </TabsContent>
@@ -324,15 +324,15 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
 
         {orderBook && (
           <div className="mt-4 border rounded-lg p-4">
-            <h4 className="text-sm font-semibold mb-3">Order Book</h4>
+            <h4 className="text-sm font-semibold mb-3">Livro de Ofertas</h4>
             <div className="space-y-2">
               <div>
-                <p className="text-xs text-muted-foreground mb-1">NO Buyers (Liquidity for YES)</p>
+                <p className="text-xs text-muted-foreground mb-1">Compradores NÃO (Liquidez para SIM)</p>
                 <div className="space-y-1">
                   {orderBook.asks?.slice(0, 3).map((ask: any, i: number) => (
                     <div key={i} className="flex justify-between text-xs bg-destructive/10 p-1 rounded">
                       <span className="text-destructive">{ask.price}¢</span>
-                      <span>{ask.shares} shares</span>
+                      <span>{ask.shares} ações</span>
                     </div>
                   ))}
                 </div>
@@ -344,12 +344,12 @@ export function TradingModal({ isOpen, onClose, market, onOrderPlaced }: Trading
               </div>
 
               <div>
-                <p className="text-xs text-muted-foreground mb-1">YES Buyers</p>
+                <p className="text-xs text-muted-foreground mb-1">Compradores SIM</p>
                 <div className="space-y-1">
                   {orderBook.bids?.slice(0, 3).map((bid: any, i: number) => (
                     <div key={i} className="flex justify-between text-xs bg-success/10 p-1 rounded">
                       <span className="text-success">{bid.price}¢</span>
-                      <span>{bid.shares} shares</span>
+                      <span>{bid.shares} ações</span>
                     </div>
                   ))}
                 </div>

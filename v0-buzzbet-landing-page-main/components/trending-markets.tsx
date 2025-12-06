@@ -64,7 +64,7 @@ export function TrendingMarkets() {
 
   const handleBetClick = (market: Market) => {
     if (!account) {
-      alert("Please connect your wallet to place a bet!")
+      alert("Por favor, conecte sua carteira para fazer uma aposta!")
       return
     }
     setSelectedMarket(market)
@@ -80,13 +80,13 @@ export function TrendingMarkets() {
       <div className="container mx-auto px-4">
         <div className="mb-12 flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Trending Markets</h2>
-            <p className="mt-2 text-muted-foreground">Predict celebrity events and earn rewards</p>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Mercados em Alta</h2>
+            <p className="mt-2 text-muted-foreground">Preveja eventos de celebridades e ganhe recompensas</p>
           </div>
-          <Button variant="outline">View All</Button>
+          <Button variant="outline">Ver Todos</Button>
         </div>
 
-        <div className="mb-4 text-xs text-muted-foreground text-center">v2.0 - Dynamic Odds System Active</div>
+        <div className="mb-4 text-xs text-muted-foreground text-center">v2.0 - Sistema de Odds Dinâmicas Ativo</div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {markets.map((market) => (
@@ -109,14 +109,14 @@ export function TrendingMarkets() {
                     className="flex-col h-auto py-4 border-success/50 hover:bg-success/10 bg-transparent"
                     onClick={() => handleBetClick(market)}
                   >
-                    <span className="text-2xl font-bold text-success">Yes</span>
+                    <span className="text-2xl font-bold text-success">Sim</span>
                   </Button>
                   <Button
                     variant="outline"
                     className="flex-col h-auto py-4 border-destructive/50 hover:bg-destructive/10 bg-transparent"
                     onClick={() => handleBetClick(market)}
                   >
-                    <span className="text-2xl font-bold text-destructive">No</span>
+                    <span className="text-2xl font-bold text-destructive">Não</span>
                   </Button>
                 </div>
 

@@ -54,10 +54,10 @@ export function Leaderboard() {
           <div className="mb-12 text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-sm font-medium text-accent">
               <Trophy className="h-4 w-4" />
-              Top Predictors
+              Melhores Preditores
             </div>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-4">Leaderboard</h2>
-            <p className="text-muted-foreground">See who's making the best celebrity predictions</p>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-4">Classificação</h2>
+            <p className="text-muted-foreground">Veja quem está fazendo as melhores previsões sobre celebridades</p>
           </div>
 
           <Card className="overflow-hidden">
@@ -78,7 +78,7 @@ export function Leaderboard() {
 
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold">{predictor.name}</div>
-                    <div className="text-sm text-muted-foreground">{predictor.predictions} predictions</div>
+                    <div className="text-sm text-muted-foreground">{predictor.predictions} previsões</div>
                   </div>
 
                   <div className="hidden sm:flex items-center gap-2">
@@ -96,7 +96,7 @@ export function Leaderboard() {
 
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              Join thousands of users making predictions and earning rewards
+              Junte-se a milhares de usuários fazendo previsões e ganhando recompensas
             </p>
           </div>
         </div>

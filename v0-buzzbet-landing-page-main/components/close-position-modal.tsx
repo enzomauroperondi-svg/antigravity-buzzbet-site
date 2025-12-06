@@ -32,7 +32,7 @@ export function ClosePositionModal({ isOpen, onClose, position, onPositionClosed
 
   const handleClose = async () => {
     if (!account || !limitPrice || !sharesToClose) {
-      alert("Please fill in all fields")
+      alert("Por favor, preencha todos os campos")
       return
     }
 
@@ -40,12 +40,12 @@ export function ClosePositionModal({ isOpen, onClose, position, onPositionClosed
     const price = Number.parseFloat(limitPrice)
 
     if (shares <= 0 || shares > position.shares) {
-      alert(`Please enter shares between 1 and ${position.shares}`)
+      alert(`Por favor, insira ações entre 1 e ${position.shares}`)
       return
     }
 
     if (price <= 0 || price >= 100) {
-      alert("Price must be between 0 and 100 cents")
+      alert("O preço deve estar entre 0 e 100 centavos")
       return
     }
 
@@ -86,18 +86,18 @@ export function ClosePositionModal({ isOpen, onClose, position, onPositionClosed
       })
 
       if (!response.ok) {
-        throw new Error("Failed to close position")
+        throw new Error("Falha ao fechar posição")
       }
 
       alert(
-        `✅ Close order placed!\n\nClosing ${shares} ${position.side.toUpperCase()} shares\n\nTransaction: ${tx.hash.slice(0, 10)}...`,
+        `✅ Ordem de fechamento colocada!\n\nFechando ${shares} ações ${position.side.toUpperCase()}\n\nTransação: ${tx.hash.slice(0, 10)}...`,
       )
 
       onPositionClosed?.()
       onClose()
     } catch (error: any) {
       console.error("Error closing position:", error)
-      alert(`Failed to close position: ${error.message}`)
+      alert(`Falha ao fechar posição: ${error.message}`)
     } finally {
       setIsClosing(false)
     }
@@ -107,24 +107,24 @@ export function ClosePositionModal({ isOpen, onClose, position, onPositionClosed
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Close Position</DialogTitle>
+          <DialogTitle>Fechar Posição</DialogTitle>
           <DialogDescription className="text-pretty">{position.market.question}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div className="rounded-lg border p-4">
             <div className="flex justify-between mb-2">
-              <span className="text-sm text-muted-foreground">Current Position</span>
+              <span className="text-sm text-muted-foreground">Posição Atual</span>
               <span className={`font-semibold ${position.side === "yes" ? "text-success" : "text-destructive"}`}>
                 {position.shares} {position.side.toUpperCase()} @ {position.avgPrice.toFixed(1)}¢
               </span>
             </div>
-            <p className="text-xs text-muted-foreground">Closing creates a buy order on the opposite side</p>
+            <p className="text-xs text-muted-foreground">Fechar cria uma ordem de compra no lado oposto</p>
           </div>
 
           <div className="space-y-3">
             <div>
-              <Label htmlFor="shares">Shares to Close</Label>
+              <Label htmlFor="shares">Ações para Fechar</Label>
               <Input
                 id="shares"
                 type="number"
@@ -134,11 +134,11 @@ export function ClosePositionModal({ isOpen, onClose, position, onPositionClosed
                 value={sharesToClose}
                 onChange={(e) => setSharesToClose(e.target.value)}
               />
-              <p className="text-xs text-muted-foreground mt-1">Max: {position.shares} shares</p>
+              <p className="text-xs text-muted-foreground mt-1">Máx: {position.shares} ações</p>
             </div>
 
             <div>
-              <Label htmlFor="price">Limit Price (cents)</Label>
+              <Label htmlFor="price">Preço Limite (centavos)</Label>
               <Input
                 id="price"
                 type="number"
@@ -150,14 +150,14 @@ export function ClosePositionModal({ isOpen, onClose, position, onPositionClosed
                 onChange={(e) => setLimitPrice(e.target.value)}
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Your close price (creates {position.side === "yes" ? "NO" : "YES"} buy order)
+                Seu preço de fechamento (cria ordem de compra {position.side === "yes" ? "NÃO" : "SIM"})
               </p>
             </div>
           </div>
 
           <div className="flex gap-3">
             <Button variant="outline" onClick={onClose} className="flex-1 bg-transparent" disabled={isClosing}>
-              Cancel
+              Cancelar
             </Button>
             <Button
               onClick={handleClose}
@@ -167,10 +167,10 @@ export function ClosePositionModal({ isOpen, onClose, position, onPositionClosed
               {isClosing ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
+                  Processando...
                 </>
               ) : (
-                "Close Position"
+                "Fechar Posição"
               )}
             </Button>
           </div>

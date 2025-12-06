@@ -9,8 +9,8 @@ import { Suspense } from "react"
 import { Web3Provider } from "@/lib/web3-context"
 
 export const metadata: Metadata = {
-  title: "Buzzbet - Celebrity Prediction Market",
-  description: "Turn celebrity gossip into winning predictions. A social, gamified prediction market for pop culture.",
+  title: "Buzzbet - Mercado de Previsão de Celebridades",
+  description: "Transforme fofocas de celebridades em previsões vencedoras. Um mercado de previsão social e gamificado para a cultura pop.",
   generator: "v0.app",
 }
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <Suspense fallback={null}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>

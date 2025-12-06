@@ -11,42 +11,42 @@ export function Footer() {
               <span className="text-lg font-bold">Buzzbet</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Turn celebrity gossip into winning predictions. The first social prediction market for pop culture.
+              Transforme fofocas de celebridades em previsões vencedoras. O primeiro mercado de previsão social para a cultura pop.
             </p>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Product</h3>
+            <h3 className="font-semibold mb-4">Produto</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Markets
+                  Mercados
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Leaderboard
+                  Classificação
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  How It Works
+                  Como Funciona
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Pricing
+                  Preços
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h3 className="font-semibold mb-4">Empresa</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  About
+                  Sobre
                 </a>
               </li>
               <li>
@@ -56,12 +56,12 @@ export function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Careers
+                  Carreiras
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Contact
+                  Contato
                 </a>
               </li>
             </ul>
@@ -72,17 +72,17 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Privacy
+                  Privacidade
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Terms
+                  Termos
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
-                  Responsible Gaming
+                  Jogo Responsável
                 </a>
               </li>
             </ul>
@@ -90,7 +90,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>© 2025 Buzzbet. All rights reserved. First mover in celebrity prediction markets.</p>
+          <p>© 2025 Buzzbet. Todos os direitos reservados. Pioneiro em mercados de previsão de celebridades.</p>
         </div>
       </div>
     </footer>

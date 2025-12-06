@@ -33,17 +33,17 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
 
   const handlePlaceBet = async () => {
     if (!account) {
-      alert("Please connect your wallet first!")
+      alert("Por favor, conecte sua carteira primeiro!")
       return
     }
 
     if (!amount || Number.parseFloat(amount) <= 0) {
-      alert("Please enter a valid amount")
+      alert("Por favor, insira um valor válido")
       return
     }
 
     if (balance && Number.parseFloat(amount) > Number.parseFloat(balance)) {
-      alert("Insufficient balance")
+      alert("Saldo insuficiente")
       return
     }
 
@@ -71,7 +71,7 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
       if (!preRegisterResponse.ok) {
         const errorText = await preRegisterResponse.text()
         console.error("[v0] Pre-register failed:", errorText)
-        alert(`Failed to register bet: ${errorText}`)
+        alert(`Falha ao registrar aposta: ${errorText}`)
         setIsPlacingBet(false)
         return
       }
@@ -80,7 +80,7 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
       console.log("[v0] Pre-register result:", preRegisterResult)
 
       if (!preRegisterResult.success) {
-        alert(`Failed to register bet: ${preRegisterResult.message}`)
+        alert(`Falha ao registrar aposta: ${preRegisterResult.message}`)
         setIsPlacingBet(false)
         return
       }
@@ -134,7 +134,7 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
 
       if (updateResult.success) {
         alert(
-          `✅ Bet placed successfully!\n\n${amount} ETH on ${prediction.toUpperCase()}\n\nTransaction: ${tx.hash.slice(0, 10)}...${tx.hash.slice(-8)}\n\nNew odds:\nYes: ${updateResult.newOdds.oddsYes.toFixed(2)}x\nNo: ${updateResult.newOdds.oddsNo.toFixed(2)}x`,
+          `✅ Aposta realizada com sucesso!\n\n${amount} ETH em ${prediction.toUpperCase()}\n\nTransação: ${tx.hash.slice(0, 10)}...${tx.hash.slice(-8)}\n\nNovas odds:\nSim: ${updateResult.newOdds.oddsYes.toFixed(2)}x\nNão: ${updateResult.newOdds.oddsNo.toFixed(2)}x`,
         )
         onBetPlaced?.()
         onClose()
@@ -147,9 +147,9 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
     } catch (error: any) {
       console.error("[v0] Error placing bet:", error)
       if (error.code === "ACTION_REJECTED" || error.code === 4001) {
-        alert("Transaction rejected by user")
+        alert("Transação rejeitada pelo usuário")
       } else {
-        alert(`Failed to place bet: ${error.message || "Unknown error"}\n\nCheck console for details.`)
+        alert(`Falha ao realizar aposta: ${error.message || "Erro desconhecido"}\n\nVerifique o console para detalhes.`)
       }
     } finally {
       setIsPlacingBet(false)
@@ -160,24 +160,24 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Place Your Bet</DialogTitle>
+          <DialogTitle>Faça Sua Aposta</DialogTitle>
           <DialogDescription className="text-pretty">{market.question}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div className="flex items-center justify-between rounded-lg border p-4">
             <div>
-              <p className="text-sm text-muted-foreground">Your Prediction</p>
+              <p className="text-sm text-muted-foreground">Sua Previsão</p>
               <p className="text-2xl font-bold capitalize">{prediction}</p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-muted-foreground">Current Odds</p>
+              <p className="text-sm text-muted-foreground">Odds Atuais</p>
               <p className="text-2xl font-bold text-accent">{odds}x</p>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="amount">Bet Amount (ETH)</Label>
+            <Label htmlFor="amount">Valor da Aposta (ETH)</Label>
             <Input
               id="amount"
               type="number"
@@ -188,13 +188,13 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
               onChange={(e) => setAmount(e.target.value)}
             />
             <p className="text-xs text-muted-foreground">
-              Available balance: {balance ? `${Number.parseFloat(balance).toFixed(4)} ETH` : "Connect wallet"}
+              Saldo disponível: {balance ? `${Number.parseFloat(balance).toFixed(4)} ETH` : "Conectar carteira"}
             </p>
           </div>
 
           <div className="rounded-lg bg-muted p-4 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Bet Amount</span>
+              <span className="text-muted-foreground">Valor da Aposta</span>
               <span className="font-medium">{amount || "0"} ETH</span>
             </div>
             <div className="flex justify-between text-sm">
@@ -202,18 +202,18 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
               <span className="font-medium">{odds}x</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Potential Return</span>
+              <span className="text-muted-foreground">Retorno Potencial</span>
               <span className="font-medium">{potentialReturn} ETH</span>
             </div>
             <div className="flex justify-between text-sm pt-2 border-t">
-              <span className="text-muted-foreground">Potential Profit</span>
+              <span className="text-muted-foreground">Lucro Potencial</span>
               <span className="font-bold text-accent">+{potentialProfit} ETH</span>
             </div>
           </div>
 
           <div className="flex gap-3">
             <Button variant="outline" onClick={onClose} className="flex-1 bg-transparent" disabled={isPlacingBet}>
-              Cancel
+              Cancelar
             </Button>
             <Button
               onClick={handlePlaceBet}
@@ -223,10 +223,10 @@ export function BettingModal({ isOpen, onClose, market, prediction, onBetPlaced 
               {isPlacingBet ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
+                  Processando...
                 </>
               ) : (
-                "Confirm Bet"
+                "Confirmar Aposta"
               )}
             </Button>
           </div>

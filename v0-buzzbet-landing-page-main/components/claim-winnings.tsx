@@ -66,8 +66,8 @@ export function ClaimWinnings() {
       })
 
       toast({
-        title: "Processing...",
-        description: "Claiming your winnings",
+        title: "Processando...",
+        description: "Reivindicando seus ganhos",
       })
 
       await tx.wait()
@@ -85,8 +85,8 @@ export function ClaimWinnings() {
       }
 
       toast({
-        title: "Success!",
-        description: `Claimed ${totalClaimable.toFixed(4)} ETH in winnings`,
+        title: "Sucesso!",
+        description: `Reivindicou ${totalClaimable.toFixed(4)} ETH em ganhos`,
       })
 
       // Refresh winnings
@@ -94,8 +94,8 @@ export function ClaimWinnings() {
     } catch (error) {
       console.error("Error claiming winnings:", error)
       toast({
-        title: "Error",
-        description: "Failed to claim winnings",
+        title: "Erro",
+        description: "Falha ao reivindicar ganhos",
         variant: "destructive",
       })
     } finally {
@@ -107,7 +107,7 @@ export function ClaimWinnings() {
     return (
       <Card className="p-6 bg-card border-border text-center">
         <Trophy className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-        <p className="text-muted-foreground">Connect your wallet to view winnings</p>
+        <p className="text-muted-foreground">Conecte sua carteira para ver os ganhos</p>
       </Card>
     )
   }
@@ -115,16 +115,16 @@ export function ClaimWinnings() {
   return (
     <Card className="p-6 bg-card border-border">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">Your Winnings</h2>
+        <h2 className="text-2xl font-bold">Seus Ganhos</h2>
         <Button onClick={fetchWinnings} variant="outline" size="sm" disabled={loading}>
-          {loading ? "Loading..." : "Refresh"}
+          {loading ? "Carregando..." : "Atualizar"}
         </Button>
       </div>
 
       {winnings.length === 0 ? (
         <div className="text-center py-8">
           <Coins className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-          <p className="text-muted-foreground">No winnings available to claim</p>
+          <p className="text-muted-foreground">Nenhum ganho disponível para reivindicar</p>
         </div>
       ) : (
         <>
@@ -134,9 +134,9 @@ export function ClaimWinnings() {
                 <p className="font-medium mb-2">{winning.marketQuestion}</p>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">
-                    Bet: {winning.betAmount} ETH on {winning.prediction}
+                    Aposta: {winning.betAmount} ETH em {winning.prediction}
                   </span>
-                  <span className="text-primary font-semibold">Won: {winning.winnings.toFixed(4)} ETH</span>
+                  <span className="text-primary font-semibold">Ganhou: {winning.winnings.toFixed(4)} ETH</span>
                 </div>
               </div>
             ))}
@@ -144,13 +144,13 @@ export function ClaimWinnings() {
 
           <div className="p-4 rounded-lg bg-primary/10 border border-primary mb-4">
             <div className="flex justify-between items-center">
-              <span className="text-lg font-semibold">Total Claimable</span>
+              <span className="text-lg font-semibold">Total Reivindicável</span>
               <span className="text-2xl font-bold text-primary">{totalClaimable.toFixed(4)} ETH</span>
             </div>
           </div>
 
           <Button onClick={claimWinnings} disabled={claiming} className="w-full">
-            {claiming ? "Claiming..." : `Claim ${totalClaimable.toFixed(4)} ETH`}
+            {claiming ? "Reivindicando..." : `Reivindicar ${totalClaimable.toFixed(4)} ETH`}
           </Button>
         </>
       )}

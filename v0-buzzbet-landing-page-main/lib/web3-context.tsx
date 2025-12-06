@@ -11,6 +11,7 @@ interface Web3ContextType {
   disconnectWallet: () => void
   placeBet: (marketId: number, amount: string, prediction: "yes" | "no") => Promise<void>
   refreshBalance: () => Promise<void>
+  signer: ethers.Signer | null
 }
 
 const Web3Context = createContext<Web3ContextType | undefined>(undefined)
@@ -19,6 +20,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   const [account, setAccount] = useState<string | null>(null)
   const [balance, setBalance] = useState<string | null>(null)
   const [isConnecting, setIsConnecting] = useState(false)
+  const [signer, setSigner] = useState<ethers.Signer | null>(null)
 
   useEffect(() => {
     // Check if wallet is already connected
@@ -67,6 +69,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
     } else {
       setAccount(null)
       setBalance(null)
+      setSigner(null)
     }
   }
 
@@ -75,7 +78,9 @@ export function Web3Provider({ children }: { children: ReactNode }) {
       if (typeof window !== "undefined" && window.ethereum) {
         const provider = new ethers.BrowserProvider(window.ethereum)
         const balance = await provider.getBalance(address)
+        const signer = await provider.getSigner()
         setBalance(ethers.formatEther(balance))
+        setSigner(signer)
       }
     } catch (error) {
       console.error("Error fetching balance:", error)
@@ -85,7 +90,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   const connectWallet = async () => {
     if (typeof window === "undefined" || !window.ethereum) {
       alert(
-        "Please install MetaMask!\n\nMetaMask is required to place bets with cryptocurrency.\n\nDownload at: https://metamask.io",
+        "Por favor, instale o MetaMask!\n\nMetaMask é necessário para fazer apostas com criptomoedas.\n\nBaixe em: https://metamask.io",
       )
       return
     }
@@ -102,9 +107,9 @@ export function Web3Provider({ children }: { children: ReactNode }) {
     } catch (error: any) {
       console.error("[v0] Error connecting wallet:", error)
       if (error.code === 4001) {
-        alert("Connection rejected. Please try again and approve the connection.")
+        alert("Conexão rejeitada. Por favor, tente novamente e aprove a conexão.")
       } else {
-        alert("Failed to connect wallet. Please make sure MetaMask is unlocked.")
+        alert("Falha ao conectar carteira. Certifique-se de que o MetaMask está desbloqueado.")
       }
     } finally {
       setIsConnecting(false)
@@ -114,11 +119,12 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   const disconnectWallet = () => {
     setAccount(null)
     setBalance(null)
+    setSigner(null)
   }
 
   const placeBet = async (marketId: number, amount: string, prediction: "yes" | "no") => {
     if (!account) {
-      alert("Please connect your wallet first!")
+      alert("Por favor, conecte sua carteira primeiro!")
       return
     }
 
@@ -137,11 +143,11 @@ export function Web3Provider({ children }: { children: ReactNode }) {
       await tx.wait()
       console.log("[v0] Bet placed successfully:", { marketId, amount, prediction })
 
-      alert(`Bet placed successfully! ${amount} ETH on ${prediction.toUpperCase()}`)
+      alert(`Aposta realizada com sucesso! ${amount} ETH em ${prediction.toUpperCase()}`)
       await updateBalance(account)
     } catch (error) {
       console.error("Error placing bet:", error)
-      alert("Failed to place bet. Please try again.")
+      alert("Falha ao realizar aposta. Por favor, tente novamente.")
     }
   }
 
@@ -159,6 +165,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
             await updateBalance(account)
           }
         },
+        signer,
       }}
     >
       {children}

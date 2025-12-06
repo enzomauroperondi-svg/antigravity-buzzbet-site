@@ -25,11 +25,11 @@ export function PaymentButton() {
                             size="sm"
                         >
                             <CreditCard className="mr-2 h-4 w-4" />
-                            Deposit / Add Funds
+                            Depositar / Adicionar Fundos
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <p>Buy USDC with Credit Card or PIX</p>
+                        <p>Compre USDC com Cartão de Crédito ou PIX</p>
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>

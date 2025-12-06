@@ -55,8 +55,8 @@ export function Portfolio() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <Wallet className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-xl font-semibold mb-2">Connect Your Wallet</h3>
-            <p className="text-muted-foreground">Connect your wallet to view your positions</p>
+            <h3 className="text-xl font-semibold mb-2">Conecte Sua Carteira</h3>
+            <p className="text-muted-foreground">Conecte sua carteira para ver suas posições</p>
           </div>
         </div>
       </section>
@@ -67,9 +67,9 @@ export function Portfolio() {
     return (
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-6">My Positions</h2>
+          <h2 className="text-2xl font-bold mb-6">Minhas Posições</h2>
           <div className="text-center text-muted-foreground">
-            <p>No active positions. Start trading to build your portfolio!</p>
+            <p>Nenhuma posição ativa. Comece a negociar para construir seu portfólio!</p>
           </div>
         </div>
       </section>
@@ -80,7 +80,7 @@ export function Portfolio() {
     <>
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-6">My Positions</h2>
+          <h2 className="text-2xl font-bold mb-6">Minhas Posições</h2>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {positions.map((position, index) => (
@@ -99,17 +99,17 @@ export function Portfolio() {
 
                 <div className="space-y-2 mb-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Position</span>
+                    <span className="text-muted-foreground">Posição</span>
                     <span className={`font-semibold ${position.side === "yes" ? "text-success" : "text-destructive"}`}>
-                      {position.shares} {position.side.toUpperCase()} shares
+                      {position.shares} ações {position.side.toUpperCase()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Avg Price</span>
+                    <span className="text-muted-foreground">Preço Médio</span>
                     <span className="font-medium">{position.avgPrice.toFixed(1)}¢</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Total Cost</span>
+                    <span className="text-muted-foreground">Custo Total</span>
                     <span className="font-medium">{((position.avgPrice / 100) * position.shares).toFixed(4)} ETH</span>
                   </div>
                 </div>
@@ -119,7 +119,7 @@ export function Portfolio() {
                   className="w-full bg-transparent"
                   onClick={() => handleClosePosition(position)}
                 >
-                  Sell / Close
+                  Vender / Fechar
                 </Button>
               </Card>
             ))}
